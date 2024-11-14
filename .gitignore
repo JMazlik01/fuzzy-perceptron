@@ -1,0 +1,37 @@
+# Ignore compiled files
+*.fasl
+*.ufsl
+*.dfsl
+*.cfsl
+*.pfsl
+*.lx64fsl
+*.lx32fsl
+*.dx64fsl
+*.dx32fsl
+*.x86f
+*.x86fsl
+*.sparcfsl
+*.sparcf
+*.ppcf
+*.ppcfsl
+*.nfasl
+*.fas
+*.lib
+*.x64fsl
+*.64fsl
+*.sse2fsl
+
+# Lisp image and core files
+*.image
+*.core
+*.mem
+
+# Temporary files
+*~
+\#*\#
+*.swp
+*.swo
+
+# ASDF (Another System Definition Facility) cache
+.cache/
+asdf-cache/
