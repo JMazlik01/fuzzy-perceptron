@@ -1,9 +1,18 @@
 
 ;;; Fuzzy and Crisp perceptron algorithms
 
-;; Testing classes
-(defvar class1 '((-3 2 -2) (-1 7 3) (-2 4.2 1) (-1 6 -3) (-2.1 1.7 0)))
-(defvar class2 '((3 -2 -1) (1 -2 -8) (4 -2 1) (6 -1 0) (1 -3 6)))
+;;; DATA
+
+(defun data-folder ()
+  (make-pathname
+   :directory (append
+	       (butlast (pathname-directory *default-pathname-defaults*))
+	       '("data"))))
+
+(defvar *data-script* (merge-pathnames (data-folder) "process-data.lisp"))
+(defvar *data-file* (merge-pathnames (data-folder) "iris.lisp"))
+
+(load *data-script*)
 
 
 ;;; VECTOR OPERATIONS
@@ -43,7 +52,7 @@
 ;; calculates mean vector from set of vectors
 (defun mean-vector (set)
   (scale (reduce #'add-vectors set)
-	 (/ 1 (length (first set)))))
+	 (/ 1 (length set))))
 
 
 ;;; DATA PREPROCESSING
@@ -212,3 +221,27 @@
 	 (beta (beta L eps))
 	 (w (fuzzy-perceptron-algorithm ts partition (weight-vector ts) c m beta)))
     (perceptron w)))
+
+;;; TESTS
+
+(defun perceptron-test (perceptron-f &key (dataset #'dataset1))
+  (let* ((dataset (funcall dataset *data-file*))
+	 (perceptron (funcall perceptron-f
+		      (class1-training dataset)
+		      (class2-training dataset)))
+	 (c1-test (class1-test dataset))
+	 (c2-test (class2-test dataset)))
+    (values
+     perceptron
+     (mapcar (lambda (v)
+	       (classify perceptron v))
+	     c1-test)
+     (mapcar (lambda (v)
+	       (classify perceptron v))
+	     c2-test))))
+
+(defun fuzzy-perceptron-test ()
+  (perceptron-test #'train-fuzzy-perceptron))
+
+(defun crisp-perceptron-test ()
+  (perceptron-test #'train-crisp-perceptron))
