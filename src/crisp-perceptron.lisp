@@ -28,7 +28,7 @@
       (values w count))))
 
 ;; Returns trained perceptron object
-(defun train-crisp-perceptron (class1 class2 &key (c 0.5) (bound 2000))
+(defun train-crisp-perceptron (class1 class2 &key (c 0.1) (bound 2000))
   (multiple-value-bind (w count)
       (crisp-perceptron-algorithm class1 class2 c (make-n-dim-vector (class-dim class1)) bound)
     (perceptron w :iter count :info (list 'c c))))
