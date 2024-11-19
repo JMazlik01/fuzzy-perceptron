@@ -98,3 +98,13 @@
     (multiple-value-bind (w count)
 	(fuzzy-perceptron-algorithm class1 class2 partition (make-n-dim-vector (class-dim class1)) c m beta)
     (perceptron w :iter count :info (list 'L L 'm m 'c c 'eps eps 'beta beta)))))
+
+;; returns function that trains perceptron
+;; partition for trining data is cached
+(defun fuzzy-perceptron-cached (class1 class2 L)
+  (let ((partition (fuzzy-partition class1 class2 L))
+	(w (make-n-dim-vector (class-dim class1))))
+    (lambda (m c eps)
+      (multiple-value-bind (w count)
+	  (fuzzy-perceptron-algorithm class1 class2 partition w c m (beta L eps))
+	(perceptron w :iter count :info (list 'L L 'm m 'c c 'eps eps 'beta (beta L eps)))))))
