@@ -31,7 +31,12 @@
 \#*\#
 *.swp
 *.swo
+*.idea
 
 # ASDF (Another System Definition Facility) cache
 .cache/
 asdf-cache/
+
+# MNIST data
+src/data/mnist/
+src/data/mnist-lisp/

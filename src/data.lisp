@@ -11,6 +11,11 @@
 (defvar *iris-data-file* (data-path "iris.lispdata"))
 (defvar *iris-csv-file* (data-path "iris.csv"))
 
+(defvar *mnist-train-0* (data-path "train0.lispdata"))
+(defvar *mnist-train-1* (data-path "train1.lispdata"))
+(defvar *mnist-test-0* (data-path "test0.lispdata"))
+(defvar *mnist-test-1* (data-path "test1.lispdata"))
+
 ;; returns file content as list of strings
 (defun read-data (path)
   (with-open-file (s path)
@@ -58,6 +63,13 @@
 
 (defun iris-name (n)
   (fifth n))
+
+;;; MNIST DATASET FUNCTIONS
+
+(defun mnist-classes (f1 f2)
+  (list
+   (read-lisp-data f1)
+   (read-lisp-data f2)))
 
 ;;; DATA PREPROCESSING
 

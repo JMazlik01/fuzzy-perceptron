@@ -43,10 +43,14 @@
   (funcall
    (perceptron-test-2)
    (lambda (c1 c2)
-     (train-crisp-perceptron c1 c2 :bound bound))))
+     (train-crisp-perceptron c1 c2 :c 0.05 :bound bound))))
 
 (defun fuzzy-perceptron-test-2 (L m &key (eps 0.02) (c 0.1))
   (funcall
    (perceptron-test-2)
    (lambda (c1 c2)
      (train-fuzzy-perceptron c1 c2 :L L :m m :eps eps :c c))))
+
+
+;;; MNIST TESTS
+
