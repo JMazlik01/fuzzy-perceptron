@@ -124,7 +124,7 @@
 
 ;; dataset corresponding to original article dataset
 (defun article-dataset-full (path)
-  (iris-classes path 'virginica 'versicolor))
+  (iris-classes path 'versicolor 'virginica))
 
 ;; dataset corresponding to original article - features 3 and 4
 (defun article-dataset-f-3-4 (path)
